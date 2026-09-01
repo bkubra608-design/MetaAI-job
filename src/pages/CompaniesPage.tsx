@@ -30,7 +30,7 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({ onSelectCompanyJob
           Featured Tech Companies
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1">
-          Explore top enterprise software, AI labs, and high-growth organizations hiring on CareerMatch AI.
+          Explore top enterprise software, AI labs, and high-growth organizations hiring on CareerYouth.
         </p>
       </div>
 

@@ -156,7 +156,7 @@ const MainContent: React.FC = () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token || 'user-ahmed-001'}`,
       },
-      body: JSON.stringify({ status: 'Applied', notes: 'Submitted via CareerMatch AI' }),
+      body: JSON.stringify({ status: 'Applied', notes: 'Submitted via CareerYouth' }),
     });
   };
 

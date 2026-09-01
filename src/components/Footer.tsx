@@ -16,7 +16,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white shadow-md">
                 <Briefcase className="w-5 h-5" />
               </div>
-              <span className="text-xl font-extrabold text-white tracking-tight">CareerMatch AI</span>
+              <span className="text-xl font-extrabold text-white tracking-tight">CareerYouth</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Find the Job That Matches You. Your Skills. Your Career. Your Next Opportunity.
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {new Date().getFullYear()} CareerMatch AI. All rights reserved. Find the Job That Matches You.
+            © {new Date().getFullYear()} CareerYouth. All rights reserved. Find the Job That Matches You.
           </div>
           <div className="flex items-center gap-6">
             <button onClick={() => setActiveTab('how-it-works')} className="hover:text-slate-300">

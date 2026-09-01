@@ -64,7 +64,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ setActiveTab, op
           Matching Methodology
         </span>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight">
-          How CareerMatch AI Works
+          How CareerYouth Works
         </h1>
         <p className="text-sm text-slate-600 leading-relaxed">
           Our deterministic and AI-enhanced matching engine maps job seeker profiles to live verified job listings without keyword guessing.
@@ -105,7 +105,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ setActiveTab, op
           <h3 className="text-lg font-bold">Verified LinkedIn Job Dataset</h3>
         </div>
         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          CareerMatch AI operates on curated, structured job data collected for educational and portfolio demonstration purposes. All listings include normalized tech stacks, explicit minimum experience thresholds, clear educational criteria, and salary transparency benchmarks.
+          CareerYouth operates on curated, structured job data collected for educational and portfolio demonstration purposes. All listings include normalized tech stacks, explicit minimum experience thresholds, clear educational criteria, and salary transparency benchmarks.
         </p>
       </div>
 

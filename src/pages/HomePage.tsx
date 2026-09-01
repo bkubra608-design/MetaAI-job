@@ -69,7 +69,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Subheading */}
               <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed">
-                CareerMatch AI analyzes your <strong className="text-slate-800">skills, experience, education, and career goals</strong> to discover high-affinity opportunities from our curated LinkedIn dataset.
+                CareerYouth analyzes your <strong className="text-slate-800">skills, experience, education, and career goals</strong> to discover high-affinity opportunities from our curated LinkedIn dataset.
               </p>
 
               {/* CTA Action Buttons */}
@@ -272,14 +272,14 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 4. HOW CAREERMATCH AI WORKS (4 PILLARS) */}
+      {/* 4. HOW CAREERYOUTH WORKS (4 PILLARS) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
             Intelligent Matching Architecture
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 mt-3 tracking-tight">
-            How CareerMatch AI Connects You to Ideal Roles
+            How CareerYouth Connects You to Ideal Roles
           </h2>
           <p className="text-sm text-slate-500 mt-2">
             No keyword lottery. Our multi-factor algorithm maps your real qualifications to job requirements.

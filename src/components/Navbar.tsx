@@ -62,8 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-lg font-extrabold tracking-tight text-slate-900">CareerMatch</span>
-                  <span className="text-xs font-bold px-1.5 py-0.5 rounded-md bg-indigo-100 text-indigo-700 tracking-wider">AI</span>
+                  <span className="text-lg font-extrabold tracking-tight text-slate-900">CareerYouth</span>
                 </div>
                 <span className="hidden sm:block text-[11px] font-medium text-slate-500 tracking-tight">
                   Find the Job That Matches You
