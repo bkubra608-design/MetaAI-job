@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext.js';
+import { ClerkWrapper, ClerkUserSync, useClerkConfig } from './context/ClerkAuthContext.js';
 import { Navbar } from './components/Navbar.js';
 import { Footer } from './components/Footer.js';
 import { HomePage } from './pages/HomePage.js';
@@ -12,6 +13,7 @@ import { ProfilePage } from './pages/ProfilePage.js';
 import { HowItWorksPage } from './pages/HowItWorksPage.js';
 import { JobDetailsModal } from './components/JobDetailsModal.js';
 import { AuthModal } from './components/AuthModal.js';
+import { ClerkAuthModal } from './components/ClerkAuthModal.js';
 import { CareerMateDrawer } from './components/CareerMateDrawer.js';
 import { JobWithMatch } from './types.js';
 import { Bot, Sparkles } from 'lucide-react';
@@ -31,6 +33,7 @@ const MainContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [selectedJob, setSelectedJob] = useState<JobWithMatch | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isClerkModalOpen, setIsClerkModalOpen] = useState(false);
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState(false);
   const [chatInitialQuery, setChatInitialQuery] = useState<string | undefined>(undefined);
 
@@ -192,6 +195,7 @@ const MainContent: React.FC = () => {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         openAuthModal={() => setIsAuthModalOpen(true)}
+        openClerkModal={() => setIsClerkModalOpen(true)}
         openChatDrawer={() => {
           setChatInitialQuery(undefined);
           setIsChatDrawerOpen(true);
@@ -326,6 +330,12 @@ const MainContent: React.FC = () => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
+        onOpenClerkModal={() => setIsClerkModalOpen(true)}
+      />
+
+      <ClerkAuthModal
+        isOpen={isClerkModalOpen}
+        onClose={() => setIsClerkModalOpen(false)}
       />
 
       <CareerMateDrawer
@@ -343,9 +353,12 @@ const MainContent: React.FC = () => {
 
 export function App() {
   return (
-    <AuthProvider>
-      <MainContent />
-    </AuthProvider>
+    <ClerkWrapper>
+      <AuthProvider>
+        <ClerkUserSync />
+        <MainContent />
+      </AuthProvider>
+    </ClerkWrapper>
   );
 }
 

@@ -15,14 +15,20 @@ import {
   FileCheck2,
   BrainCircuit,
   Info,
+  ShieldCheck,
+  Key,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
+import { useClerkConfig } from '../context/ClerkAuthContext.js';
+import { CareerYouthLogo, CareerYouthEmblem } from './CareerYouthLogo.js';
+import { UserButton, useUser, useClerk } from '@clerk/clerk-react';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   openAuthModal: () => void;
   openChatDrawer: () => void;
+  openClerkModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -30,11 +36,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   openAuthModal,
   openChatDrawer,
+  openClerkModal,
 }) => {
   const { user, profile, logout, switchDemoUser } = useAuth();
+  const { isClerkConfigured, openClerkModal: triggerClerkModal } = useClerkConfig();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const [isDemoDropdownOpen, setIsDemoDropdownOpen] = useState(false);
+
+  const handleOpenClerk = () => {
+    if (openClerkModal) {
+      openClerkModal();
+    } else {
+      triggerClerkModal('signin');
+    }
+  };
 
   const navLinks = [
     { id: 'home', label: 'Home', icon: Compass },
@@ -47,24 +63,25 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
-          {/* Logo */}
+          {/* Logo with signature corporate inverted triangle + necktie */}
           <div className="flex items-center gap-8">
             <button
               id="brand-logo-btn"
               onClick={() => setActiveTab('home')}
-              className="flex items-center gap-2.5 text-left group focus:outline-hidden"
+              className="flex items-center gap-3 text-left group focus:outline-hidden"
+              title="CareerYouth - Find the Job That Matches You"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                <Briefcase className="w-5 h-5" />
-              </div>
+              <CareerYouthEmblem size={38} className="group-hover:scale-105 transition-transform" />
               <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-lg font-extrabold tracking-tight text-slate-900">CareerYouth</span>
+                <div className="flex items-center gap-1.5 leading-none">
+                  <span className="text-xl font-black tracking-tight text-slate-900">
+                    Career<span className="text-indigo-600">Youth</span>
+                  </span>
                 </div>
-                <span className="hidden sm:block text-[11px] font-medium text-slate-500 tracking-tight">
+                <span className="hidden sm:block text-[11px] font-medium text-slate-500 tracking-tight leading-none mt-1">
                   Find the Job That Matches You
                 </span>
               </div>
@@ -100,7 +117,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Action Bar */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Clerk Status / Setup Quick Pill */}
+            <button
+              id="clerk-status-btn"
+              onClick={handleOpenClerk}
+              className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-indigo-200 bg-indigo-50/60 hover:bg-indigo-100/80 text-[11px] font-semibold text-indigo-700 transition-colors shadow-2xs"
+              title="Clerk Authentication Configuration & Social Logins"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
+              <span>{isClerkConfigured ? 'Clerk Active' : 'Clerk Auth'}</span>
+            </button>
+
             {/* CareerMate AI quick launcher */}
             <button
               id="open-careermate-ai-btn"
@@ -254,6 +282,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <span>Application Tracker</span>
                     </button>
 
+                    <button
+                      id="dropdown-clerk-btn"
+                      onClick={() => {
+                        handleOpenClerk();
+                        setIsUserDropdownOpen(false);
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-indigo-700 hover:bg-indigo-50 rounded-xl transition-colors"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                      <span>Clerk Auth Settings</span>
+                    </button>
+
                     <div className="border-t border-slate-100 my-1 pt-1">
                       <button
                         id="dropdown-logout-btn"
@@ -274,14 +314,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   id="navbar-login-btn"
-                  onClick={openAuthModal}
+                  onClick={handleOpenClerk}
                   className="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-indigo-600 transition-colors"
                 >
                   Sign In
                 </button>
                 <button
                   id="navbar-signup-btn"
-                  onClick={openAuthModal}
+                  onClick={handleOpenClerk}
                   className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold shadow-xs transition-all"
                 >
                   Get Started
@@ -332,7 +372,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
 
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-2">Demo Profiles</div>
+            <button
+              onClick={() => {
+                handleOpenClerk();
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full py-2 px-3 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 font-semibold text-xs flex items-center justify-center gap-2"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>Clerk Authentication & Settings</span>
+            </button>
+
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-2 pt-1">Demo Profiles</div>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => {

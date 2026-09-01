@@ -1,5 +1,6 @@
 import React from 'react';
-import { Briefcase, Sparkles, Heart, Shield, Code2, Database } from 'lucide-react';
+import { Sparkles, Heart, Shield, Code2, Database } from 'lucide-react';
+import { CareerYouthEmblem } from './CareerYouthLogo.js';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
@@ -12,11 +13,13 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
           {/* Col 1: Brand */}
           <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-white shadow-md">
-                <Briefcase className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <CareerYouthEmblem size={36} />
+              <div className="flex items-center gap-1.5 leading-none">
+                <span className="text-xl font-black text-white tracking-tight">
+                  Career<span className="text-indigo-400">Youth</span>
+                </span>
               </div>
-              <span className="text-xl font-extrabold text-white tracking-tight">CareerYouth</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Find the Job That Matches You. Your Skills. Your Career. Your Next Opportunity.

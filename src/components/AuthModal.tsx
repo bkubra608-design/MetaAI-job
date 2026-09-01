@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { X, Lock, Mail, User, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { X, Lock, Mail, User, Sparkles, ArrowRight, ShieldCheck, Key } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
+import { useClerkConfig } from '../context/ClerkAuthContext.js';
+import { CareerYouthEmblem } from './CareerYouthLogo.js';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenClerkModal?: () => void;
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onOpenClerkModal }) => {
   const { login, register, switchDemoUser } = useAuth();
+  const { isClerkConfigured, openClerkModal } = useClerkConfig();
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,6 +53,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleClerkAuth = () => {
+    onClose();
+    if (onOpenClerkModal) {
+      onOpenClerkModal();
+    } else {
+      openClerkModal(isRegisterMode ? 'signup' : 'signin');
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in">
       <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden p-6 sm:p-8">
@@ -60,23 +73,40 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Title */}
+        {/* Title & Emblem */}
         <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center mx-auto mb-3 shadow-2xs">
-            <Sparkles className="w-6 h-6" />
+          <div className="flex justify-center mb-3">
+            <CareerYouthEmblem size={52} />
           </div>
           <h2 className="text-xl font-bold text-slate-900">
-            {isRegisterMode ? 'Create your CareerMatch account' : 'Welcome back to CareerMatch AI'}
+            {isRegisterMode ? 'Join CareerYouth' : 'Welcome back to CareerYouth'}
           </h2>
           <p className="text-xs text-slate-500 mt-1">
             {isRegisterMode
-              ? 'Start matching your skills with live curated LinkedIn opportunities'
-              : 'Sign in to access your AI match recommendations & application tracker'}
+              ? 'Discover verified jobs matched directly to your skills and career goals'
+              : 'Sign in to access your recommendations & application tracker'}
           </p>
         </div>
 
+        {/* Clerk SSO & Social Auth Primary Option */}
+        <div className="mb-4">
+          <button
+            id="clerk-auth-primary-btn"
+            type="button"
+            onClick={handleClerkAuth}
+            className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 hover:from-slate-800 hover:to-indigo-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2.5 border border-indigo-500/30 group"
+          >
+            <ShieldCheck className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
+            <span>
+              {isClerkConfigured
+                ? isRegisterMode ? 'Sign up with Clerk (Google, GitHub)' : 'Sign in with Clerk (Passkeys, Google)'
+                : 'Configure Clerk Authentication'}
+            </span>
+          </button>
+        </div>
+
         {/* Instant Demo Accounts */}
-        <div className="mb-6 p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+        <div className="mb-4 p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2 text-center">
             🚀 1-Click Instant Demo Login
           </span>
@@ -112,12 +142,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Divider */}
-        <div className="relative my-4">
+        <div className="relative my-3">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-slate-200"></div>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-slate-400 font-semibold text-[10px]">Or continue with email</span>
+            <span className="bg-white px-2 text-slate-400 font-semibold text-[10px]">Or email & password</span>
           </div>
         </div>
 
@@ -129,7 +159,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-3.5">
+        <form onSubmit={handleSubmit} className="space-y-3">
           {isRegisterMode && (
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
@@ -144,7 +174,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   placeholder="e.g. John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
                 />
               </div>
             </div>
@@ -163,7 +193,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
               />
             </div>
           </div>
@@ -182,7 +212,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-900 focus:bg-white focus:border-indigo-500 outline-hidden"
               />
             </div>
           </div>
@@ -191,12 +221,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             id="auth-submit-btn"
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 mt-2"
+            className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 mt-2"
           >
             {isSubmitting ? (
               <span>Processing...</span>
             ) : isRegisterMode ? (
-              <span>Create Free Account</span>
+              <span>Create Account</span>
             ) : (
               <span>Sign In</span>
             )}
@@ -204,7 +234,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </form>
 
         {/* Toggle Mode */}
-        <div className="text-center mt-5 text-xs text-slate-500">
+        <div className="text-center mt-4 text-xs text-slate-500">
           {isRegisterMode ? (
             <p>
               Already have an account?{' '}
