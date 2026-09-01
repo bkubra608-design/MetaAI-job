@@ -1,0 +1,6 @@
+{
+  "name": "CareerMatch AI",
+  "description": "AI-powered job discovery and matching platform featuring CareerMate AI, tailored recommendations, and skill gap analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
