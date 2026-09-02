@@ -41,7 +41,7 @@ export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
     {
       id: 'msg-welcome',
       sender: 'ai',
-      text: `👋 **Hi ${profile?.name?.split(' ')[0] || 'there'}! I'm CareerMate AI**, your dedicated AI career strategist.\n\nI have analyzed your active profile (**${profile?.skills?.slice(0, 4).join(', ') || 'tech skills'}**) and our LinkedIn dataset. Ask me anything about job matches, skill gaps, resume refinement, or interview prep!`,
+      text: `👋 **Hi ${profile?.name?.split(' ')[0] || 'there'}! I'm CareerYouth AI Assistant, your dedicated AI career strategist.\n\nI have analyzed your active profile (${profile?.skills?.slice(0, 4).join(', ') || 'tech skills'}) and our LinkedIn dataset. Ask me anything about job matches, skill gaps, resume refinement, or interview prep!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -123,7 +123,7 @@ export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h3 className="text-base font-bold text-white">CareerMate AI</h3>
+                <h3 className="text-base font-bold text-white">CareerYouth AI</h3>
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               </div>
               <p className="text-xs text-indigo-200 font-medium">Your AI Career Assistant & Job Matcher</p>
@@ -255,7 +255,7 @@ export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
                 <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '0ms' }}></div>
                 <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '150ms' }}></div>
                 <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                <span className="text-xs text-slate-500 font-medium ml-1.5">CareerMate AI is thinking...</span>
+                <span className="text-xs text-slate-500 font-medium ml-1.5">CareerYouth AI is thinking...</span>
               </div>
             </div>
           )}
@@ -275,7 +275,7 @@ export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
             <input
               id="careermate-chat-input"
               type="text"
-              placeholder="Ask CareerMate AI about jobs, skills, or career advice..."
+              placeholder="Ask CareerYouth AI about jobs, skills, or career advice..."
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               disabled={isTyping}
@@ -292,7 +292,7 @@ export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
             </button>
           </form>
           <div className="text-[10px] text-slate-400 text-center mt-2">
-            CareerMate AI compares user profiles with real job requirements using Gemini AI.
+            CareerYouth AI compares user profiles with real job requirements.
           </div>
         </div>
       </div>
