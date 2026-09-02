@@ -14,7 +14,7 @@ import {
 import { useAuth } from '../context/AuthContext.js';
 import { ChatMessage, Job } from '../types.js';
 
-interface CareerMateDrawerProps {
+interface CareerYouthDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   initialQuery?: string;
@@ -29,7 +29,7 @@ const DEFAULT_PROMPTS = [
   'What should I learn to become a Senior Engineer?',
 ];
 
-export const CareerMateDrawer: React.FC<CareerMateDrawerProps> = ({
+export const CareerMateDrawer: React.FC<CareerYouthDrawerProps> = ({
   isOpen,
   onClose,
   initialQuery,
