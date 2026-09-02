@@ -136,8 +136,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200/80 text-indigo-700 text-xs sm:text-sm font-semibold hover:bg-indigo-100/80 shadow-2xs hover:shadow-xs transition-all"
             >
               <Bot className="w-4 h-4 text-indigo-600 animate-pulse" />
-              <span className="hidden sm:inline">Ask CareerMate AI</span>
-              <span className="sm:hidden">CareerMate</span>
+              <span className="hidden sm:inline">Ask CareerYouth AI</span>
+              <span className="sm:hidden">CareerYouth</span>
             </button>
 
             {/* Demo user quick switcher */}
